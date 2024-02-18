@@ -57,13 +57,13 @@ export default function Home() {
                 <td className="border border-slate-700 rounded-md text-center">{index + 1}</td>
                 <td className="border border-slate-700 rounded-md text-center">{book.name}</td>
                 <td className="border border-slate-700 rounded-md text-center">{book.author}</td>
-                <td className="border border-slate-700 rounded-md text-center">{formatter.format(new Date(book.releaseDate))}</td>
+                <td className="border border-slate-700 rounded-md text-center">{book.publishYear}</td>
                 <td className="border border-slate-700 rounded-md text-center">
                   <div className="flex gap-2 justify-center" >
                     <Link to={`/books/details/${book._id}`}>
                       <IoIosInformationCircleOutline className="text-2xl text-green-800"/>
                     </Link>
-                    <Link to={`/books/delete/${book._id}`}> 
+                    <Link to={`/books/edit/${book._id}`}> 
                       <CiEdit className="text-2xl text-yellow-600"/>
                     </Link>
                     <Link to={`/books/delete/${book._id}`}> 
