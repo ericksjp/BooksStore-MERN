@@ -1,29 +1,20 @@
 import { Router } from "express";
+import { createBook, deleteBook, getAllBooks, getBook, updateBook } from "../controllers/books.mjs"
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.status(200).send({msg: "hello get"});
-});
+router.get("/", getAllBooks);;
 
-router.get("/:id", (req, res) => {
-  res.status(200).send({msg: "hello get id"});
-});
+router.get("/:id", getBook);
 
-router.post("/", (req, res) => {
-  res.status(200).send({msg: "hello post"});
-});
+router.post("/", createBook);
 
-router.put("/:id", (req, res) => {
-  res.status(200).send({msg: "hello put"});
-});
+router.put("/:id", updateBook);
 
-router.patch("/:id", (req, res) => {
-  res.status(200).send({msg: "hello patch"});
-});
+// router.patch("/:id", (req, res) => {
+//   res.status(200).send({msg: "hello patch"});
+// });
 
-router.delete("/:id", (req, res) => {
-  res.status(200).send({msg: "hello delete"});
-});
+router.delete("/:id", deleteBook);
 
 export default router;
