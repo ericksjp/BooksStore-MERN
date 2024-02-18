@@ -3,8 +3,7 @@ function asyncWrapprer(fn) {
     try {
       await fn(req, res, next);
     } catch(error) {
-      return res.status(500).send({msg: error.message});
-      // next(error);
+      next(error);
     }
   }
 }

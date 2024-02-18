@@ -9,9 +9,6 @@ const getAllBooks = asyncWrapper( async (req, res) => {
 const getBook = asyncWrapper( async (req, res) => {
   const { id } = req.params;
   const book = await Book.findById({_id: id});
-  if (!book) {
-    return res.status(404).send({msg: "Book not found"});
-  }
   return res.status(200).send(book);
 });
 

@@ -1,6 +1,8 @@
 import express from 'express';
 import routes from './routes/index.mjs'
 import mongoose from 'mongoose';
+import errorHandlerMiddleware from './middlewares/errorsHandler.mjs';
+import notFound from './middlewares/not-found.mjs';
 
 const port = 3000;
 
@@ -8,6 +10,8 @@ const app = express();
 app.use(express.json());
 
 app.use(routes);
+app.use(errorHandlerMiddleware);
+app.use(notFound);
 
 async function start(port) {
   try {
