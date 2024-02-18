@@ -31,7 +31,7 @@ export default function UpdateBook() {
     const newData = {
       name,
       author,
-      publishYear: parseInt(publishYear)
+      publishYear
     }
     api.put(`/${id}`, newData).then((response) => {
       setLoading(false);
@@ -76,7 +76,7 @@ export default function UpdateBook() {
               <div className="my-2">
                 <label className="text-xl text-gray-500">Publish Year</label>
                 <input 
-                  type="number"
+                  type="string"
                   value={publishYear}
                   onChange={(e) => setPublishYear(e.target.value)}
                   className="border border-slate-600 rounded-md p-2 w-full"

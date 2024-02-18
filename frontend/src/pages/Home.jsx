@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
+import { MdOutlineAddBox } from "react-icons/md";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 import { SnackbarProvider } from 'notistack';
@@ -11,7 +11,6 @@ import { SnackbarProvider } from 'notistack';
 import Loader from "../components/Loader";
 import api from "../services/api";
 import DeleteModal from "../components/DeleteModal";
-import ModalComponent from "../components/ModalComponent";
 
 export default function Home() {
   const [books, setBooks] = useState([]);

@@ -6,12 +6,14 @@ const BookSchema = new mongoose.Schema({
     required: [true, "Name is required"],
     trim: true,
     maxlenght: [70, "Name cannot be more than 70 characters"],
+    minLenght: [1, "Name cannot be empty"],
   },
   author: {
     type: String,
     required: [true, "Author is required"],
     trim: true,
     maxlenght: [70, "Author cannot be more than 70 characters"],
+    minLenght: [1, "Author cannot be empty"],
   },
   publishYear: {
     type: Number,

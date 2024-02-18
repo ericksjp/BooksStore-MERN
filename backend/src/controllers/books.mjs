@@ -1,4 +1,5 @@
 import asyncWrapper from '../middlewares/async.mjs';
+import ValidateBodyProps from '../utils/validateBodyProps.mjs';
 import Book from '../models/book.mjs'
 
 const getAllBooks = asyncWrapper( async (req, res) => {
@@ -18,7 +19,9 @@ const createBook = asyncWrapper( async (req, res) => {
   return res.status(200).send(newBook);
 });
 
-const updateBook = asyncWrapper( async (req, res) => {
+const updateBook = 
+  asyncWrapper ( async (req, res) => {
+  ValidateBodyProps(["name", "author", "publishYear"], req.body);
   const { id } = req.params;
   const { name, author, publishYear } = req.body;
   const book = await Book.findByIdAndUpdate(id, { name, author, publishYear });
