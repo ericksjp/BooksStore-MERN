@@ -2,7 +2,9 @@ import asyncWrapper from '../middlewares/async.mjs';
 import Book from '../models/book.mjs'
 
 const getAllBooks = asyncWrapper( async (req, res) => {
-  const books = await Book.find({});
+  let books = await Book.find({});
+  books.map((book) => book.releaseDate = book.releaseDate.toLocaleDateString());
+  console.log(books);
   return res.status(200).send(books);
 });
 
