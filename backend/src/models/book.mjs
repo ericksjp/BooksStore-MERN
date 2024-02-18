@@ -13,9 +13,9 @@ const BookSchema = new mongoose.Schema({
     trim: true,
     maxlenght: [70, "Author cannot be more than 70 characters"],
   },
-  releaseDate: {
-    type: Date,
-    required: [true, "Release date is required"],
+  publishYear: {
+    type: Number,
+    required: [true, "Publish year is required"],
   },
 });
 

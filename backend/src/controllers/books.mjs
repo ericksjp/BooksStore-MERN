@@ -3,8 +3,6 @@ import Book from '../models/book.mjs'
 
 const getAllBooks = asyncWrapper( async (req, res) => {
   let books = await Book.find({});
-  books.map((book) => book.releaseDate = book.releaseDate.toLocaleDateString());
-  console.log(books);
   return res.status(200).send(books);
 });
 
@@ -15,15 +13,15 @@ const getBook = asyncWrapper( async (req, res) => {
 });
 
 const createBook = asyncWrapper( async (req, res) => {
-  const { name, author, releaseDate } = req.body;
-  const newBook = await Book.create({ name, author, releaseDate });
+  const { name, author, publishYear } = req.body;
+  const newBook = await Book.create({ name, author, publishYear });
   return res.status(200).send(newBook);
 });
 
 const updateBook = asyncWrapper( async (req, res) => {
   const { id } = req.params;
-  const { name, author, releaseDate } = req.body;
-  const book = await Book.findByIdAndUpdate(id, { name, author, releaseDate });
+  const { name, author, publishYear } = req.body;
+  const book = await Book.findByIdAndUpdate(id, { name, author, publishYear });
   return res.status(200).send(book);
 });
 

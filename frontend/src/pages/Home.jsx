@@ -5,19 +5,18 @@ import { Link } from "react-router-dom";
 import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
+import { SnackbarProvider } from 'notistack';
+
 
 import Loader from "../components/Loader";
 import api from "../services/api";
-
-const formatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'numeric',
-  day: 'numeric',
-});
+import DeleteModal from "../components/DeleteModal";
+import ModalComponent from "../components/ModalComponent";
 
 export default function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     api.get("/").then((response) => { 
@@ -66,9 +65,9 @@ export default function Home() {
                     <Link to={`/books/edit/${book._id}`}> 
                       <CiEdit className="text-2xl text-yellow-600"/>
                     </Link>
-                    <Link to={`/books/delete/${book._id}`}> 
-                      <MdOutlineDelete className="text-2xl text-red-600"/>
-                    </Link>
+                    <SnackbarProvider>
+                      <DeleteModal bookInfo={book} />
+                    </SnackbarProvider>
                   </div>
                 </td>
               </tr>
