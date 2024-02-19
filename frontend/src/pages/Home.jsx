@@ -51,11 +51,8 @@ export default function Home() {
                     <Link to={`/books/details/${book._id}`}>
                       <IoIosInformationCircleOutline className="text-2xl text-green-800"/>
                     </Link>
-                    <Link to={`/books/edit/${book._id}`}> 
-                      <CiEdit className="text-2xl text-yellow-600"/>
-                    </Link>
+                      <EditModal bookInfo={book}/>
                       <DeleteModal bookInfo={book}/>
-                      {/* <EditModal /> */}
                   </div>
                 </td>
               </tr>
