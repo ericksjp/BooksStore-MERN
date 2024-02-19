@@ -1,36 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import api from "../services/api";
 import { useSnackbar } from 'notistack';
 
 import { MdOutlineDelete } from "react-icons/md";
 import Loader from "./Loader";
 
+import { BookListContext } from "../contexts/BookListContext";
+
 function DeleteModal(props) {
   const [modal, setModal] =  useState(false);
   const [loading, setLoading] = useState(false);
+  const [buttonState, setButton] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const toggleModal = () => {
     setModal(!modal);
   }
 
-  const handleYesClick = () => {
+  const { handleRefresh } = useContext(BookListContext);
+
+  const handleYesClick = async () => {
     setLoading(true);
-    setModal();
-    api.delete(`/${props.bookInfo._id}`).then((response) => {
-      setLoading(false);
-      enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
-      setModal(!modal);
-    }).catch((error) => {
+    try {
+        await api.delete(`/${props.bookInfo._id}`);
+        setLoading(false);
+        enqueueSnackbar('Deleted', { variant: 'success', autoHideDuration: 2000 });
+        handleRefresh();
+        toggleModal();
+    }
+    catch(error) {
       setLoading(false);
       enqueueSnackbar('Error', { variant: 'error' });
-      setModal(!modal);
-    });
-  };
+    }
+  }
 
   return (
     <div className="p4">
-      <button onClick={toggleModal}>
+      <button onClick={(toggleModal)}>
         <MdOutlineDelete className="text-2xl text-red-600"/>
       </button>
 
@@ -45,13 +51,14 @@ function DeleteModal(props) {
             <div className="flex gap-5">
               <button 
                 onClick={handleYesClick}  
-                className="mt-4 inline-flex px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg text-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="mt-4 relative inline-flex px-5 py-2 text-sm font-medium text-center text-white bg-green-500 hover:bg-red-500 justify-center"
               >
+                {loading && <Loader style="animate-ping absolute inline-flex h-5 w-8 bg-red-500 opacity-4"/>}
                 Yes
               </button>
               <button 
                 onClick={toggleModal}
-                className="mt-4 inline-flex px-5 py-2 text-sm font-medium text-center text-white bg-blue-100 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="mt-4 inline-flex px-5 py-2 text-sm font-medium text-center text-white bg-blue-400 hover:bg-red-500"
               >
                 No
               </button>

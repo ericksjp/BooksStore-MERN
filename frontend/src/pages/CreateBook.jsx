@@ -10,7 +10,7 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 export default function CreateBook() {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
-  const [publishYear, setPublishYear] = useState();
+  const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
   const {id} = useParams();
   const Navigate = useNavigate();

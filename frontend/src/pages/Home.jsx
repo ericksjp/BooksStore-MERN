@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { MdOutlineAddBox } from "react-icons/md";
@@ -7,28 +7,18 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 import { SnackbarProvider } from 'notistack';
 
+import { BookListContext } from "../contexts/BookListContext.jsx";
 
 import Loader from "../components/Loader";
-import api from "../services/api";
 import DeleteModal from "../components/DeleteModal";
+import EditModal from "../components/EditModal.jsx";
 
 export default function Home() {
-  const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    api.get("/").then((response) => { 
-      setBooks(response.data);
-      setLoading(false);
-    })
-    .catch((error) => {
-      console.log(error);
-      setLoading(false);
-    });
-  }, []);
+  const { books } = useContext(BookListContext) || []; // Provide default value
 
   return (
+    <SnackbarProvider>
     <div className="p-4">
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-bold text-sky-800">Books List</h1>
@@ -64,9 +54,8 @@ export default function Home() {
                     <Link to={`/books/edit/${book._id}`}> 
                       <CiEdit className="text-2xl text-yellow-600"/>
                     </Link>
-                    <SnackbarProvider>
-                      <DeleteModal bookInfo={book} />
-                    </SnackbarProvider>
+                      <DeleteModal bookInfo={book}/>
+                      {/* <EditModal /> */}
                   </div>
                 </td>
               </tr>
@@ -75,5 +64,6 @@ export default function Home() {
         </table>
       )}
     </div>
+    </SnackbarProvider>
   );
 };
