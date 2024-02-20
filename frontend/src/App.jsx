@@ -1,9 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import ListBook from "./pages/ListBook.jsx";
 import CreateBook from "./pages/CreateBook.jsx";
-import UpdateBook from "./pages/UpdateBook.jsx";
 
 import { BookListProvider } from './contexts/BookListContext.jsx';
 
@@ -11,18 +9,12 @@ import "./index.css";
 
 export default function App() {
   return (
+    <BookListProvider>
       <Routes>
-        <Route 
-          path="/" 
-          element={
-          <BookListProvider>
-            <Home />
-          </BookListProvider>
-          } />
+        <Route path="/" element={<Home />} />
         <Route path="/books/create" element={<CreateBook />} />
-        <Route path="/books/details/:id" element={<ListBook />} />
-        <Route path="/books/edit/:id" element={<UpdateBook />} />
       </Routes>
+      </BookListProvider>
   );
 }
 
