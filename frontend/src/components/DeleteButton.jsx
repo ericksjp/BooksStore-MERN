@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import api from "../services/api";
 import { useSnackbar } from 'notistack';
 import { BookListContext } from "../contexts/BookListContext";

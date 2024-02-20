@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { MdOutlineDelete , MdEdit} from "react-icons/md";
 import DeleteButton from "./DeleteButton.jsx";
@@ -7,8 +7,8 @@ import BookDetails from "../components/BookDetails.jsx";
 import EditComponent from "../components/EditComponent.jsx";
 
 
-export default function BookCard({book}) {
-  const [option, setOption] = useState(1);
+export default function BookCard(props) {
+  const [option, setOption] = useState(props.option || 1);
 
   function toggleOption(num) {
     setOption(num);
@@ -16,7 +16,7 @@ export default function BookCard({book}) {
 
   return (
     <div className="w-fibt p-5 mx-auto">
-      <div className="relative border-2 border-sky-600 rounded-xl w-[500px] px-4 py-2 mx-auto">
+      <div className="relative border-2 border-sky-600 rounded-xl w-[500px] px-4 py-2 mx-auto &{}">
         {option === 1 && (
           <>
           <div className="inline-flex flex-col float-right absolute right-0 top-0 border-l-2 border-b-2 rounded-bl-md border-sky-600 w-fit p-1 gap-4">
@@ -27,18 +27,23 @@ export default function BookCard({book}) {
               <MdEdit className="p-1 text-3xl text-yellow-700 bg-yellow-400 hover:bg-yellow-300 rounded-full" />
             </button>
           </div>
-          <BookDetails book={book} />
+          <BookDetails book={props.book} />
           </>
         )}
         {option === 2 && (
           <>
-            <DeleteButton toggle={toggleOption} bookId={book._id}/>
-            <BookDetails book={book} />
+            <DeleteButton toggle={toggleOption} bookId={props.book._id}/>
+            <BookDetails book={props.book} />
           </>
         )}
         {option === 3 && (
           <>
-            <EditComponent book={book} toggle={toggleOption}/>
+            <EditComponent book={props.book} toggle={toggleOption} type={1}/>
+          </>
+        )}
+        {option === 4 && (
+          <>
+            <EditComponent type={0}/>
           </>
         )}
 

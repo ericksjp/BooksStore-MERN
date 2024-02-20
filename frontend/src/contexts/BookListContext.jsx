@@ -9,7 +9,6 @@ const BookListProvider = ({ children }) => {
 
   const fetchBooks = async () => {
     try {
-      // Replace with your API call to fetch books
       const response = await api.get('/');
       setBooks(response.data);
     } catch (error) {
@@ -19,10 +18,10 @@ const BookListProvider = ({ children }) => {
 
   useEffect(() => {
     fetchBooks();
-  }, []); // Fetch books on initial render
+  }, []);
 
   const handleRefresh = async () => {
-    await fetchBooks(); // Refetch books after deletion
+    await fetchBooks();
   };
 
   return (

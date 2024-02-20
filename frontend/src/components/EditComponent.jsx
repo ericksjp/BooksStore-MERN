@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import UpdateButton from "./UpdateButton";
+import CreateButton from "./CreateButton";
 
 function EditComponent(props) {
   const [name, setName] = useState("");
@@ -7,13 +8,10 @@ function EditComponent(props) {
   const [publishYear, setPublishYear] = useState("");
 
   const toggleReload = () => {
-    setName(props.book.name);
-    setAuthor(props.book.author);
-    setPublishYear(props.book.publishYear);
+    setName(props.book?.name || "");
+    setAuthor(props.book?.author || "");
+    setPublishYear(props.book?.publishYear || "");
   }
-
-  console.log(props.toggle);
-  console.log(props.book)
 
   useEffect(() => {
     toggleReload();
@@ -21,7 +19,7 @@ function EditComponent(props) {
 
   return (
     <>
-      <span className="text-gray-500 mt-2 italic">{props.book._id}</span>
+      {props.type === 1 && (<span className="text-gray-500 mt-2 italic">{props.book._id}</span>)}
 
       <div className="my-1 flex flex-col w-96">
         <label className="text-xl text-gray-700 text-30 font-semibold">
@@ -30,7 +28,9 @@ function EditComponent(props) {
         <input
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setName(e.target.value)}}
           className="border border-slate-600 rounded-md p-1 w-full text-lg italic"
         />
       </div>
@@ -56,7 +56,8 @@ function EditComponent(props) {
           className="border border-slate-600 rounded-md p-1 w-full text-lg italic"
         />
       </div>
-      <UpdateButton bookId={props.book._id} values={{name, author, publishYear}} toggle={props.toggle}/>
+      {props.type === 0 && ( <CreateButton book={{name, author, publishYear}} /> )}
+      {props.type === 1 && ( <UpdateButton bookId={props.book._id} values={{name, author, publishYear}} toggle={props.toggle}/>)}
     </>
   );
 }

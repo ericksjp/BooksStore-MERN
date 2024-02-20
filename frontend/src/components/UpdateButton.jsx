@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import api from "../services/api";
 import { useSnackbar } from 'notistack';
 import { BookListContext } from "../contexts/BookListContext";
-import { GiConfirmed } from "react-icons/gi";
 
-import { MdOutlineDelete , MdEdit} from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 export default function UpdateButton(props) {
   const { enqueueSnackbar } = useSnackbar();
